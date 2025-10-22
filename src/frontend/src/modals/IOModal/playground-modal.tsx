@@ -28,6 +28,7 @@ import { createNewSessionName } from "./components/chatView/chatInput/components
 import { SelectedViewField } from "./components/selected-view-field";
 import { SidebarOpenView } from "./components/sidebar-open-view";
 import { useGetFlowId } from "./hooks/useGetFlowId";
+import useTheme from "@/customization/hooks/use-custom-theme";
 
 export default function IOModal({
   children,
@@ -41,6 +42,8 @@ export default function IOModal({
   const setIOModalOpen = useFlowsManagerStore((state) => state.setIOModalOpen);
   const inputs = useFlowStore((state) => state.inputs);
   const outputs = useFlowStore((state) => state.outputs);
+  const theme = useTheme()
+
   const nodes = useFlowStore((state) => state.nodes);
   const buildFlow = useFlowStore((state) => state.buildFlow);
   const setIsBuilding = useFlowStore((state) => state.setIsBuilding);
@@ -374,16 +377,13 @@ export default function IOModal({
                     <div
                       className={cn(
                         `flex rounded p-1`,
-                        swatchColors[swatchIndex],
                       )}
                     >
-                      <IconComponent
-                        name={flowIcon ?? "Workflow"}
-                        className="h-3.5 w-3.5"
-                      />
+                      
+                      <img src="/logoen.png" alt="Langflow Logo" style={{ height: 24 }} />
                     </div>
                     {sidebarOpen && (
-                      <div className="truncate font-semibold">
+                      <div className={`truncate font-semibold `} style={{color: theme.dark ? '#ffcb4e' : '#083970'}}>
                         {PlaygroundTitle}
                       </div>
                     )}
@@ -423,14 +423,14 @@ export default function IOModal({
                       <div className="text-sm">Theme</div>
                       <ThemeButtons />
                     </div>
-                    <Button
+                    {/* <Button
                       onClick={LangflowButtonClick}
                       variant="primary"
                       className="w-full !rounded-xl shadow-lg"
                     >
                       <LangflowLogoColor />
                       <div className="text-sm">Built with Langflow</div>
-                    </Button>
+                    </Button> */}
                   </div>
                 )}
               </div>
