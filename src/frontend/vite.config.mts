@@ -60,9 +60,11 @@ export default defineConfig(({ mode }) => {
     plugins: [react(), svgr(), tsconfigPaths()],
     server: {
       port: port,
+      host: true,
       proxy: {
         ...proxyTargets,
       },
+      allowedHosts: ['5f42b66bf156.ngrok-free.app'],
     },
   };
 });
