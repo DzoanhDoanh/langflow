@@ -62,7 +62,7 @@ const ButtonSendWrapper = ({
     >
       <Case condition={showStopButton}>
         <div className="flex items-center gap-2 rounded-md text-sm font-medium">
-          Stop
+          Dừng
           <Loading className="h-4 w-4" />
         </div>
       </Case>
@@ -77,7 +77,7 @@ const ButtonSendWrapper = ({
 
       <Case condition={showSendButton}>
         <div className="flex h-fit w-fit items-center gap-2 text-sm font-medium">
-          Send
+          Gửi
         </div>
       </Case>
     </Button>

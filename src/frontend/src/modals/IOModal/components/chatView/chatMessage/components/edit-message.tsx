@@ -6,6 +6,10 @@ import { EMPTY_OUTPUT_SEND_MESSAGE } from "@/constants/constants";
 import { preprocessChatMessage } from "@/utils/markdownUtils";
 import { cn } from "@/utils/utils";
 import CodeTabsComponent from "../../../../../../components/core/codeTabsComponent";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import type { SliderSingleProps } from 'antd';
+import { Slider, Form, Input } from 'antd';
 
 type MarkdownFieldProps = {
   chat: any;
@@ -14,7 +18,7 @@ type MarkdownFieldProps = {
   editedFlag: React.ReactNode;
   isAudioMessage?: boolean;
 };
-
+const formatter: NonNullable<SliderSingleProps['tooltip']>['formatter'] = (value) => `${value}%`;
 export const MarkdownField = ({
   chat,
   isEmpty,
@@ -22,9 +26,9 @@ export const MarkdownField = ({
   editedFlag,
   isAudioMessage,
 }: MarkdownFieldProps) => {
-  // Process the chat message to handle <think> tags and clean up tables
   const processedChatMessage = preprocessChatMessage(chatMessage);
-
+  const [feedbackSent, setFeedbackSent] = useState(false);
+  const [form] = Form.useForm();
   return (
     <div className="w-full items-baseline gap-2">
       <Markdown
@@ -33,14 +37,79 @@ export const MarkdownField = ({
         rehypePlugins={[rehypeMathjax, rehypeRaw]}
         className={cn(
           "markdown prose flex w-full max-w-full flex-col items-baseline text-sm font-normal word-break-break-word dark:prose-invert",
-          isEmpty ? "text-muted-foreground" : "text-primary",
+          isEmpty ? "text-muted-foreground" : "text-primary"
         )}
         components={{
           p({ node, ...props }) {
             return (
-              <p className="w-fit max-w-full my-1.5 last:mb-0 first:mt-0">
-                {props.children}
-              </p>
+              <>
+                <p className="w-fit max-w-full my-1.5 last:mb-0 first:mt-0">
+                  {props.children}
+                </p>
+                {/* Form đánh giá luôn hiển thị */}
+                {!feedbackSent && (
+                  <Form
+                    form={form}
+                    layout="vertical"
+                    className="w-full mt-4"
+                    initialValues={{ rating: 100, comment: "" }}
+                    onFinish={(values) => {
+                      console.log(values);
+                      setFeedbackSent(true);
+                    }}
+                  >
+                    <hr className="my-2 border-border" />
+                    <Form.Item
+                      label={
+                        <span className="font-semibold">
+                          Đánh giá độ chính xác của AI:
+                        </span>
+                      }
+                      name="rating"
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm">0%</span>
+                        <Slider 
+                          tooltip={{ formatter }} 
+                          max={100}
+                          defaultValue={100}
+                          min={0}
+                          step={1}
+                          style={{ width: 250}}
+                        />
+                        <span className="text-sm">100%</span>
+                      </div>
+                    </Form.Item>
+                    <Form.Item
+                      label="Nhận xét:"
+                      name="comment"
+                    >
+                      <Input.TextArea
+                        rows={2}
+                        autoSize={{ minRows: 2, maxRows: 100 }}
+                        placeholder="Nhập nhận xét của bạn..."
+                      />
+                    </Form.Item>
+                    <Form.Item className="mb-0">
+                      <div className="flex justify-end w-full">
+                        <Button
+                          type="submit"
+                          variant="primary"
+                          size="xs"
+                        
+                        >
+                          Gửi
+                        </Button>
+                      </div>
+                    </Form.Item>
+                  </Form>
+                )}
+                {feedbackSent && (
+                  <div className="mt-4 text-green-600 font-medium">
+                    Đã gửi phản hồi!
+                  </div>
+                )}
+              </>
             );
           },
           ol({ node, ...props }) {
