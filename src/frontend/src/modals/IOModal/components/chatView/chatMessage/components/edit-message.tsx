@@ -43,7 +43,7 @@ export const MarkdownField = ({
           p({ node, ...props }) {
             return (
               <>
-                <p className="w-fit max-w-full my-1.5 last:mb-0 first:mt-0">
+                <p className="w-fit max-w-full my-1.5 last:mb-0 first:mt-0" onClick={() => console.log({node, ...props})}>
                   {props.children}
                 </p>
                 {/* Form đánh giá luôn hiển thị */}
@@ -53,8 +53,26 @@ export const MarkdownField = ({
                     layout="vertical"
                     className="w-full mt-4"
                     initialValues={{ rating: 100, comment: "" }}
-                    onFinish={(values) => {
+                    onFinish={async (values) => {
                       console.log(values);
+                      try{
+                        const response = await fetch(`http://127.0.0.1:8000/add_score_and_comment?message_id=${chat.id.split('-').join('')}&score=${values.rating}&comment=${values.comment}`, {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
+                          },
+                          // body: JSON.stringify({
+                          //   message_id: chat.id,
+                          //   score : values.rating,
+                          //   comment : values.comment,
+                          // }),
+                        });
+                        console.log(response)
+                      }
+                      catch(err){
+                        console.error('Error sending feedback:', err);
+                      }
+
                       setFeedbackSent(true);
                     }}
                   >
@@ -98,7 +116,7 @@ export const MarkdownField = ({
                           size="xs"
                         
                         >
-                          Gửi
+                          Gửi 
                         </Button>
                       </div>
                     </Form.Item>

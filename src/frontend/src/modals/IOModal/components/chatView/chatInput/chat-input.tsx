@@ -179,10 +179,11 @@ export default function ChatInput({
         animation: "smooth",
         duration: 1000,
       });
-      await sendMessage({
+      const res = await sendMessage({
         repeat: 1,
         files: filesToSend,
       });
+      console.log('sendMessage response:', res);
     } catch (_error) {
       setChatValueStore(storedChatValue);
       setFiles(storedFiles);
