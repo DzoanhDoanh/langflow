@@ -15,6 +15,7 @@ export default function App() {
       document.getElementById("body")!.classList.add("dark");
     }
   }, [dark]);
+  
   return (
     <ConfigProvider
       theme={{
