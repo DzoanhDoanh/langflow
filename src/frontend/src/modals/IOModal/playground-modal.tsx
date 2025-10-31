@@ -391,7 +391,7 @@ export default function IOModal({
                   <ShadTooltip
                     styleClasses="z-50"
                     side="right"
-                    content="Hide sidebar"
+                    content="Ẩn"
                   >
                     <Button
                       variant="ghost"

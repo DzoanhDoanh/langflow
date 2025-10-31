@@ -50,7 +50,7 @@ export function EditMessageButton({
 
       <ShadTooltip
         styleClasses="z-50"
-        content={isCopied ? "Copied!" : "Copy message"}
+        content={isCopied ? "Đã sao chép!" : "Sao chép tin nhắn"}
         side="top"
       >
         <div className="p-1">
@@ -70,13 +70,16 @@ export function EditMessageButton({
 
       {isBotMessage && (
         <div className="flex">
-          <ShadTooltip styleClasses="z-50" content="Helpful" side="top">
+          <ShadTooltip styleClasses="z-50" content="Hữu ích" side="top">
             <div className="p-1">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => handleEvaluate(true)}
                 className="h-8 w-8"
+
+
+                
                 data-testid="helpful-button"
               >
                 <IconComponent
@@ -87,7 +90,7 @@ export function EditMessageButton({
             </div>
           </ShadTooltip>
 
-          <ShadTooltip styleClasses="z-50" content="Not helpful" side="top">
+          <ShadTooltip styleClasses="z-50" content="Không hữu ích" side="top">
             <div className="p-1">
               <Button
                 variant="ghost"

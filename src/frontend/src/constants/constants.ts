@@ -804,9 +804,9 @@ export const IS_MAC =
 
 export const defaultShortcuts = customDefaultShortcuts;
 
-export const DEFAULT_TABLE_ALERT_MSG = `Oops! It seems there's no data to display right now. Please check back later.`;
+export const DEFAULT_TABLE_ALERT_MSG = `Không có dữ liệu nào để hiển thị. Vui lòng thử lại sau.`;
 
-export const DEFAULT_TABLE_ALERT_TITLE = "No Data Available";
+export const DEFAULT_TABLE_ALERT_TITLE = "Không có dữ liệu để hiển thị";
 
 export const NO_COLUMN_DEFINITION_ALERT_TITLE = "No Column Definitions";
 
