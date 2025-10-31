@@ -56,7 +56,7 @@ export const MarkdownField = ({
                     onFinish={async (values) => {
                       console.log(values);
                       try{
-                        const response = await fetch(`http://127.0.0.1:8000/add_score_and_comment?message_id=${chat.id.split('-').join('')}&score=${values.rating}&comment=${values.comment}`, {
+                        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/add_score_and_comment?message_id=${chat.id.split('-').join('')}&score=${values.rating}&comment=${values.comment}`, {
                           method: 'POST',
                           headers: {
                             'Content-Type': 'application/json',
