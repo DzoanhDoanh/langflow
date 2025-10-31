@@ -43,7 +43,7 @@ export const MarkdownField = ({
           p({ node, ...props }) {
             return (
               <>
-                <p className="w-fit max-w-full my-1.5 last:mb-0 first:mt-0" onClick={() => console.log({node, ...props})}>
+                <p className="w-fit max-w-full my-1.5 last:mb-0 first:mt-0" >
                   {props.children}
                 </p>
                 {/* Form đánh giá luôn hiển thị */}
@@ -54,20 +54,13 @@ export const MarkdownField = ({
                     className="w-full mt-4"
                     initialValues={{ rating: 100, comment: "" }}
                     onFinish={async (values) => {
-                      console.log(values);
                       try{
-                        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/add_score_and_comment?message_id=${chat.id.split('-').join('')}&score=${values.rating}&comment=${values.comment}`, {
+                        await fetch(`${import.meta.env.VITE_BACKEND_URL}/add_score_and_comment?message_id=${chat.id.split('-').join('')}&score=${values.rating}&comment=${values.comment}`, {
                           method: 'POST',
                           headers: {
                             'Content-Type': 'application/json',
                           },
-                          // body: JSON.stringify({
-                          //   message_id: chat.id,
-                          //   score : values.rating,
-                          //   comment : values.comment,
-                          // }),
                         });
-                        console.log(response)
                       }
                       catch(err){
                         console.error('Error sending feedback:', err);
