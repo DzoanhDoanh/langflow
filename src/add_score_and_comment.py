@@ -3,6 +3,8 @@ from typing import Optional
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+
+
 app = FastAPI()
 
 # Thêm CORS middleware để cho phép request từ tất cả địa chỉ
